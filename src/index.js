@@ -19,7 +19,7 @@ function parse(output = '') {
   const result = {};
   const data = output.split(/\r?\n/);
   let section = '';
-  data.forEach((line, i) => {
+  data.forEach((line) => {
     let m;
     let changed = false;
     if (!line) section = '';
@@ -36,11 +36,11 @@ function parse(output = '') {
       if (!result[section]) result[section] = [];
       if (!changed) result[section].push(parseSection(compact(line.split(/\t/)), section));
     }
-    if (i === data.length - 6) result.time = Number(line.replace(';; Query time: ', '').replace(' msec', ''));
-    if (i === data.length - 5) result.server = line.replace(';; SERVER: ', '');
-    if (i === data.length - 4) result.datetime = line.replace(';; WHEN: ', '');
-    if (i === data.length - 3) result.size = Number(line.replace(';; MSG SIZE  rcvd: ', ''));
   });
+  result.time = Number(data[data.length - 6].replace(';; Query time: ', '').replace(' msec', ''));
+  result.server = data[data.length - 5].replace(';; SERVER: ', '');
+  result.datetime = data[data.length - 4].replace(';; WHEN: ', '');
+  result.size = Number(data[data.length - 3].replace(';; MSG SIZE  rcvd: ', ''));
   return result;
 }
 
