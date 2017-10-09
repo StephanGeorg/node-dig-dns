@@ -1,4 +1,4 @@
-# node-dig-dns
+# node-dig-dns [![npm version](https://badge.fury.io/js/node-dig-dns.svg)](https://badge.fury.io/js/node-dig-dns)
 Using node dns to query complex DNS is a hustle. This is a simple wrapper for the unix/linux/macos dig command. Output is parsed to JSON.
 
 ## Install
