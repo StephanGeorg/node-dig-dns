@@ -28,7 +28,7 @@ function parse(output = '') {
         m = regex.exec(line);
         if (m) {
           changed = true;
-          section = m[4].toLowerCase();
+          section = m[2].toLowerCase();
         }
       } while (m);
     }
@@ -44,7 +44,7 @@ function parse(output = '') {
   return result;
 }
 
-export default function (args) {
+export default function (args = []) {
   return new Promise((resolve, reject) => {
     const process = child.spawn('dig', args);
     let shellOutput = '';
