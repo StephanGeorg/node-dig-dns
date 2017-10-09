@@ -1,6 +1,6 @@
 {
   "name": "node-dig-dns",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Use dig command for DNS queries in node",
   "main": "./dist/index.js",
   "scripts": {
