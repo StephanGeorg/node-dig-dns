@@ -15,7 +15,7 @@ function parseSection(values, section) {
 }
 
 function parse(output = '') {
-  const regex = /(;)(;)( )([^\s]+)( )(SECTION)(:)/g;
+  const regex = /(;; )([^\s]+)( SECTION:)/g;
   const result = {};
   const data = output.split(/\r?\n/);
   let section = '';
