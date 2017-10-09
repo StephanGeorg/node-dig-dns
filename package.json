@@ -30,5 +30,6 @@
     "nodemon": "^1.10.0"
   },
   "dependencies": {
+    "lodash.compact": "^3.0.1"
   }
 }

@@ -1,30 +1,65 @@
-import GraphQLQueries from './queries';
+import compact from 'lodash.compact';
+import child from 'child_process';
 
-import SDKResourceNodes from './resources/nodes';
-import SDKResourceApp from './resources/app';
-import SDKResourceServer from './resources/server';
-
-class SDK {
-  constructor(opt) {
-    if (
-      !opt ||
-      !opt.apiKey ||
-      !opt.app
-    ) {
-      throw new Error('You need to provide your API credentials for the SDK.');
-    }
-    const { apiKey, app, url } = opt;
-    this.apiKey = apiKey;
-    this.app = app;
-    this.url = url || 'https://api.nearest.place/graphql';
-
-    const options = Object.assign({ url: this.url }, opt);
-
-    this.nodes = new SDKResourceNodes(options);
-    this.app = new SDKResourceApp(options);
-    this.server = new SDKResourceServer(options);
+function parseSection(values, section) {
+  if (section === 'answer') {
+    return {
+      domain: values[0],
+      type: values[3],
+      ttl: values[1],
+      class: values[2],
+      value: values[4],
+    };
   }
+  return values;
 }
 
-export const NearestClient = SDK;
-export const Queries = GraphQLQueries;
+function parse(output = '') {
+  const regex = /(;)(;)( )([^\s]+)( )(SECTION)(:)/g;
+  const result = {};
+  const data = output.split(/\r?\n/);
+  let section = '';
+  data.forEach((line, i) => {
+    let m;
+    let changed = false;
+    if (!line) section = '';
+    else {
+      do {
+        m = regex.exec(line);
+        if (m) {
+          changed = true;
+          section = m[4].toLowerCase();
+        }
+      } while (m);
+    }
+    if (section) {
+      if (!result[section]) result[section] = [];
+      if (!changed) result[section].push(parseSection(compact(line.split(/\t/)), section));
+    }
+    if (i === data.length - 6) result.time = Number(line.replace(';; Query time: ', '').replace(' msec', ''));
+    if (i === data.length - 5) result.server = line.replace(';; SERVER: ', '');
+    if (i === data.length - 4) result.datetime = line.replace(';; WHEN: ', '');
+    if (i === data.length - 3) result.size = Number(line.replace(';; MSG SIZE  rcvd: ', ''));
+  });
+  return result;
+}
+
+export default function (args) {
+  return new Promise((resolve, reject) => {
+    const process = child.spawn('dig', args);
+    let shellOutput = '';
+
+    process.stdout.on('data', (chunk) => {
+      shellOutput += chunk;
+    });
+
+    process.stdout.on('error', (error) => {
+      reject(error);
+    });
+
+    process.stdout.on('end', () => {
+      const result = parse(shellOutput);
+      resolve(result);
+    });
+  });
+}
