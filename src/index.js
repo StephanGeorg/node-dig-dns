@@ -46,11 +46,11 @@ function parse(output = '') {
   return result;
 }
 
-export default function (args = [], options = {}) {
+const dig = function dig(args = [], options = {}) {
   const raw = (options.raw === true) ? options.raw : args.includes('+short');
-  const dig = options.dig || 'dig';
+  const digCMD = options.dig || 'dig';
   return new Promise((resolve, reject) => {
-    const process = child.spawn(dig, args);
+    const process = child.spawn(digCMD, args);
     let shellOutput = '';
 
     process.stdout.on('data', (chunk) => {
@@ -69,3 +69,6 @@ export default function (args = [], options = {}) {
     });
   });
 }
+
+export default dig;
+module.exports = dig;
