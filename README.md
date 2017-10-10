@@ -33,7 +33,7 @@ dig(['@8.8.8.4','google.com', 'ANY'])
 ```
 ### Options
 Optional parameters:
-* raw: Get the raw output as string
+* raw: Get the raw output as string. If +short option, raw output is default
 * dig: Manually set the dig command (/my/custum/path/to/dig)
 
 ## Result
