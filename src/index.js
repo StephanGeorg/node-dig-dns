@@ -46,7 +46,8 @@ function parse(output = '') {
   return result;
 }
 
-export default function (args = []) {
+export default function (args = [], options = {}) {
+  const { raw } = options;
   return new Promise((resolve, reject) => {
     const process = child.spawn('dig', args);
     let shellOutput = '';
@@ -60,7 +61,9 @@ export default function (args = []) {
     });
 
     process.stdout.on('end', () => {
-      const result = parse(shellOutput);
+      const result = (raw !== true) ?
+        parse(shellOutput) :
+        shellOutput;
       resolve(result);
     });
   });

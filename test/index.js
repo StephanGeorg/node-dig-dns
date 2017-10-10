@@ -4,7 +4,7 @@ import dig from '../src/index';
 const expect = chai.expect;
 
 describe('Query DNS Server', () => {
-  it('Query ANY for google.com', (done) => {
+  it('Query ANY for google.com and parse output to JSON', (done) => {
     dig(['google.com', 'ANY'])
       .then((result) => {
         // console.log(result);
@@ -21,6 +21,18 @@ describe('Query DNS Server', () => {
           .and.to.be.an('string');
         expect(result).to.have.property('size')
           .and.to.be.an('number');
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+      });
+  });
+
+  it('Query A for google.com and return raw result', (done) => {
+    dig(['google.com', 'ANY'], { raw: true })
+      .then((result) => {
+        // console.log(result);
+        expect(result).to.be.a('string');
         done();
       })
       .catch((err) => {
