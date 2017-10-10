@@ -15,10 +15,10 @@ You can add [all args from dig](https://linux.die.net/man/1/dig) to the args arr
 dig(['google.com', 'ANY'])
   .then((result) => {
     console.log(result)
-   })
-   .catch((err) => {
-      console.log('Error:', err);
-   });
+  })
+  .catch((err) => {
+    console.log('Error:', err);
+  });
 ```
 ### Options
 Optional parameters:
