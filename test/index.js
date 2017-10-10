@@ -29,10 +29,22 @@ describe('Query DNS Server', () => {
   });
 
   it('Query A for google.com and return raw result', (done) => {
-    dig(['google.com', 'ANY'], { raw: true })
+    dig(['google.com', 'A'], { raw: true })
       .then((result) => {
         // console.log(result);
         expect(result).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+      });
+  });
+
+  it('Query ANY for google.com w/ manually settet dig command.', (done) => {
+    dig(['google.com', 'ANY'], { dig: '/usr/bin/dig' })
+      .then((result) => {
+        // console.log(result);
+        expect(result).to.be.an('object');
         done();
       })
       .catch((err) => {

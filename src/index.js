@@ -48,8 +48,9 @@ function parse(output = '') {
 
 export default function (args = [], options = {}) {
   const { raw } = options;
+  const dig = options.dig || 'dig';
   return new Promise((resolve, reject) => {
-    const process = child.spawn('dig', args);
+    const process = child.spawn(dig, args);
     let shellOutput = '';
 
     process.stdout.on('data', (chunk) => {
