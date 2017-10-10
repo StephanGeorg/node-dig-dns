@@ -48,6 +48,7 @@ The dig result is parsed and return in JSON:
        value: '30 alt2.aspmx.l.google.com.' },
        
        ...
+       
     ],         
   time: 41,
   server: '8.8.8.8#53(8.8.8.8)',
