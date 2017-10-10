@@ -2,7 +2,9 @@ import compact from 'lodash.compact';
 import child from 'child_process';
 
 function parseSection(values, section) {
-  if (section === 'answer') {
+  if (
+    section === 'answer' ||
+    section === 'additional') {
     return {
       domain: values[0],
       type: values[3],
