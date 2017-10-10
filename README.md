@@ -7,6 +7,9 @@ npm i node-dig-dns -S
 ``
 
 ## Usage
+```
+dig([args], (options))
+```
 You can add [all args from dig](https://linux.die.net/man/1/dig) to the args array:
 ```
 dig(['google.com', 'ANY'])
@@ -17,6 +20,10 @@ dig(['google.com', 'ANY'])
       console.log('Error:', err);
    });
 ```
+### Options
+Optional parameters:
+* raw: Get the raw output as string
+* dig: Manually set the dig command (/my/custum/path/to/dig)
 
 ## Result
 
