@@ -23,7 +23,7 @@ dig(['google.com', 'ANY'])
 ```
 Set custom DNS server:
 ```
-dig(['@8.8.8.8''google.com', 'ANY'])
+dig(['@8.8.8.4','google.com', 'ANY'])
   .then((result) => {
     console.log(result)
   })
