@@ -47,7 +47,7 @@ function parse(output = '') {
 }
 
 export default function (args = [], options = {}) {
-  const { raw } = options;
+  const raw = (options.raw === true) ? options.raw : args.includes('+short');
   const dig = options.dig || 'dig';
   return new Promise((resolve, reject) => {
     const process = child.spawn(dig, args);
