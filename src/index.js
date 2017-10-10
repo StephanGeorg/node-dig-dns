@@ -68,7 +68,7 @@ const dig = function dig(args = [], options = {}) {
       resolve(result);
     });
   });
-}
+};
 
 export default dig;
 module.exports = dig;
