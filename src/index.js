@@ -20,11 +20,11 @@ function parse(output = '') {
   const regex = /(;; )([^\s]+)( SECTION:)/g;
   const result = {};
   const data = output.split(/\r?\n/);
-  let section = '';
-  data.forEach((line) => {
+  let section = 'header';
+  data.forEach((line, i) => {
     let m;
     let changed = false;
-    if (!line) section = '';
+    if (i && !line) section = '';
     else {
       do {
         m = regex.exec(line);
@@ -36,7 +36,7 @@ function parse(output = '') {
     }
     if (section) {
       if (!result[section]) result[section] = [];
-      if (!changed) result[section].push(parseSection(compact(line.split(/\t/)), section));
+      if (!changed && line) result[section].push(parseSection(compact(line.split(/\t/)), section));
     }
   });
   result.time = Number(data[data.length - 6].replace(';; Query time: ', '').replace(' msec', ''));
