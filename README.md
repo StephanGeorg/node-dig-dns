@@ -10,9 +10,20 @@ npm i node-dig-dns -S
 ```
 dig([args], (options))
 ```
-You can add [all args from dig](https://linux.die.net/man/1/dig) to the args array:
+You can add [all args from dig](https://linux.die.net/man/1/dig) to the args array.
+### Examples
 ```
 dig(['google.com', 'ANY'])
+  .then((result) => {
+    console.log(result)
+  })
+  .catch((err) => {
+    console.log('Error:', err);
+  });
+```
+Set custom DNS server:
+```
+dig(['@8.8.8.8''google.com', 'ANY'])
   .then((result) => {
     console.log(result)
   })
