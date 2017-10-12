@@ -36,7 +36,10 @@ function parse(output = '') {
     }
     if (section) {
       if (!result[section]) result[section] = [];
-      if (!changed && line) result[section].push(parseSection(compact(line.split(/\t/)), section));
+      if (!changed && line) {
+        if (section === 'header') result[section].push(parseSection(compact(line.split(/\t/)), section));
+        else result[section].push(parseSection(compact(line.split(/\s+/g)), section));
+      }
     }
   });
   result.time = Number(data[data.length - 6].replace(';; Query time: ', '').replace(' msec', ''));
