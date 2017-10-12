@@ -64,7 +64,7 @@ const dig = function dig(args = [], options = {}) {
     process.stdout.on('end', () => {
       const result = (raw !== true) ?
         parse(shellOutput) :
-        shellOutput;
+        shellOutput.replace(/\n$/, '');
       resolve(result);
     });
   });
