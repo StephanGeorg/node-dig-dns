@@ -7,7 +7,7 @@ describe('Query DNS Server', () => {
   it('Query ANY for google.com and parse output to JSON', (done) => {
     dig(['google.com', 'ANY'])
       .then((result) => {
-        // console.log(result);
+        console.log(result);
         expect(result).to.be.an('object')
           .and.to.have.property('question')
           .and.to.be.an('array');
@@ -33,6 +33,30 @@ describe('Query DNS Server', () => {
       .then((result) => {
         // console.log(result);
         expect(result).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+      });
+  });
+
+  it('Query MX for google.com and return result', (done) => {
+    dig(['google.com', 'MX'])
+      .then((result) => {
+        console.log(result);
+        // expect(result).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+      });
+  });
+
+  it('Query Reverse for 78.46.108.184 and return result', (done) => {
+    dig(['-x', '78.46.108.184'])
+      .then((result) => {
+        // console.log(result);
+        // expect(result).to.be.a('string');
         done();
       })
       .catch((err) => {
