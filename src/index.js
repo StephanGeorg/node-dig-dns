@@ -21,13 +21,13 @@ function parse(output = '') {
   const result = {};
   const data = output.split(/\r?\n/);
   let section = 'header';
-  if(data.length<6) {
-    console.log(data);
-    //var msg = data[data.length-1];
-    //if (!msg || msg.length<=1) {
-    //  msg = output;
-    //}
-    throw new Error(output);
+  if (data.length < 6) {
+    // console.log('D:', data);
+    let msg = data[data.length - 2];
+    if (!msg || msg.length <= 1) {
+      msg = output;
+    }
+    throw new Error(msg);
   }
   data.forEach((line, i) => {
     let m;
