@@ -21,6 +21,14 @@ function parse(output = '') {
   const result = {};
   const data = output.split(/\r?\n/);
   let section = 'header';
+  if(data.length<6) {
+    console.log(data);
+    //var msg = data[data.length-1];
+    //if (!msg || msg.length<=1) {
+    //  msg = output;
+    //}
+    throw new Error(output);
+  }
   data.forEach((line, i) => {
     let m;
     let changed = false;
@@ -65,10 +73,15 @@ const dig = function dig(args = [], options = {}) {
     });
 
     process.stdout.on('end', () => {
-      const result = (raw !== true) ?
-        parse(shellOutput) :
-        shellOutput.replace(/\n$/, '');
-      resolve(result);
+      try {
+        const result = (raw !== true) ?
+          parse(shellOutput) :
+          shellOutput.replace(/\n$/, '');
+        resolve(result);
+      } catch(ex) {
+        reject(ex);
+      }
+
     });
   });
 };
