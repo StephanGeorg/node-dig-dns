@@ -3,7 +3,7 @@ import dig from '../src/index';
 
 const expect = chai.expect;
 
-describe('Query DNS Server', function(done){
+describe('Query DNS Server', (done) => {
   it('Query ANY for google.com and parse output to JSON', (done) => {
     dig(['google.com', 'ANY'])
       .then((result) => {
@@ -76,7 +76,6 @@ describe('Query DNS Server', function(done){
       });
   });
 
-  this.timeout(20000);
   it('DIG an unreachable host and throw exception', (done) => {
     // https://serverfault.com/questions/776049/how-to-simulate-dns-server-response-timeout#answer-776191
     dig(['example.com', '@72.66.115.13']).then((result) => {
@@ -87,5 +86,5 @@ describe('Query DNS Server', function(done){
       expect(err.message).to.be.an('string');
       done();
     });
-  });
+  }).timeout(20000);
 });

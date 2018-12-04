@@ -22,7 +22,6 @@ function parse(output = '') {
   const data = output.split(/\r?\n/);
   let section = 'header';
   if (data.length < 6) {
-    // console.log('D:', data);
     let msg = data[data.length - 2];
     if (!msg || msg.length <= 1) {
       msg = output;
@@ -78,10 +77,9 @@ const dig = function dig(args = [], options = {}) {
           parse(shellOutput) :
           shellOutput.replace(/\n$/, '');
         resolve(result);
-      } catch(ex) {
-        reject(ex);
+      } catch (err) {
+        reject(err);
       }
-
     });
   });
 };
