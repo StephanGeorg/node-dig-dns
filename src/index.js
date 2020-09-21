@@ -1,7 +1,11 @@
 import compact from 'lodash.compact';
 import child from 'child_process';
 
-function parseSection(values, section) {
+function parseSection(line, section) {
+  var data = line.toString().split("\"");
+  line = data[0];
+  var values = compact(line.toString().split(/\s+/g))
+  if(values[3] === 'TXT') values.push(data[1]);
   if (
     section === 'answer' ||
     section === 'additional') {
@@ -45,7 +49,7 @@ function parse(output = '') {
       if (!result[section]) result[section] = [];
       if (!changed && line) {
         if (section === 'header') result[section].push(parseSection(compact(line.split(/\t/)), section));
-        else result[section].push(parseSection(compact(line.split(/\s+/g)), section));
+        else result[section].push(parseSection(line, section));
       }
     }
   });
