@@ -40,6 +40,18 @@ describe('Query DNS Server', (done) => {
       });
   });
 
+  it('Query TXT for google.com and return result', (done) => {
+    dig(['google.com', 'TXT'], { raw: true })
+      .then((result) => {
+        console.log(result);
+        expect(result).to.be.a('string');
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+      });
+  });
+
   it('Query MX for google.com and return result', (done) => {
     dig(['google.com', 'MX'])
       .then((result) => {
