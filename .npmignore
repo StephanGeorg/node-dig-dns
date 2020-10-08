@@ -1,1 +1,9 @@
+LICENSE
+node_modules
+npm-debug.log
+.DS_Store
 src
+test
+.eslintrc
+.babelrc
+.github/
