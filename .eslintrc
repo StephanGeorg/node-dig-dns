@@ -1,0 +1,25 @@
+{
+  "extends": "airbnb-base",
+  "plugins": [
+      "import"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "globals": {
+    "document": true,
+    "window": true,
+    "location": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "no-pluspuls": 0,
+    "no-console": 0
+  },
+  "env": {
+      "mocha": true
+  }
+}
