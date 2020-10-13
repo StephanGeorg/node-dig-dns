@@ -60,7 +60,7 @@ const dig = function dig(args = [], options = {}) {
   const raw = (options.raw === true) ? options.raw : args.includes('+short');
   const digCMD = options.dig || 'dig';
   return new Promise((resolve, reject) => {
-    const process = child.spawn(digCMD, args);
+    const process = child.execFile(digCMD, args.split(' '));
     let shellOutput = '';
 
     process.stdout.on('data', (chunk) => {
