@@ -10,7 +10,7 @@ function parseSection(values, section) {
       type: values[3],
       ttl: values[1],
       class: values[2],
-      value: values[values.length - 1],
+      value: values.slice(4).join(" ").replace(/"/g, "")
     };
   }
   return values;
