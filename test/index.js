@@ -52,6 +52,19 @@ describe('Query DNS Server', (done) => {
       });
   });
 
+  it('Query SOA for google.com and return result with value of multiple entries', (done) => {
+    dig(['google.com', 'SOA'])
+      .then((result) => {
+        expect(result.answer).to.be.an('Array');
+        expect(result.answer[0].value).to.contain("ns1.google.com. dns-admin.google.com.");
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+        done(err);
+      });
+  });
+
   it('Query Reverse for 78.46.108.184 and return result', (done) => {
     dig(['-x', '78.46.108.184'])
       .then((result) => {
