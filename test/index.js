@@ -105,6 +105,19 @@ describe('Query DNS Server', () => {
       });
   });
 
+  it('Query SOA for google.com and return result with value of multiple entries', (done) => {
+    dig(['google.com', 'SOA'])
+      .then((result) => {
+        expect(result.answer).to.be.an('Array');
+        expect(result.answer[0].value).to.contain("ns1.google.com. dns-admin.google.com.");
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+        done(err);
+      });
+  });
+
   /* it('Query ANY for google.com w/ manually settet dig command.', (done) => {
     dig(['google.com', 'ANY'], { dig: '/usr/bin/dig' })
       .then((result) => {
