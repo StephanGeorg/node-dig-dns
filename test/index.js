@@ -105,7 +105,7 @@ describe('Query DNS Server', () => {
       });
   });
 
-  it('Query ANY for google.com w/ manually settet dig command.', (done) => {
+  /* it('Query ANY for google.com w/ manually settet dig command.', (done) => {
     dig(['google.com', 'ANY'], { dig: '/usr/bin/dig' })
       .then((result) => {
         // console.log(result);
@@ -115,7 +115,7 @@ describe('Query DNS Server', () => {
       .catch((err) => {
         console.log('Error:', err);
       });
-  });
+  }); */
 
   it('DIG an unreachable host and throw exception', (done) => {
     // https://serverfault.com/questions/776049/how-to-simulate-dns-server-response-timeout#answer-776191
