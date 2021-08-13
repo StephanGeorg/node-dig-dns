@@ -3,6 +3,7 @@
   "plugins": [
       "import"
   ],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2018,
     "ecmaFeatures": {
@@ -16,10 +17,11 @@
   },
   "rules": {
     "no-underscore-dangle": 0,
-    "no-pluspuls": 0,
+    "no-plusplus": 0,
     "no-console": 0
   },
   "env": {
-      "mocha": true
+    "node": true,
+    "mocha": true
   }
 }

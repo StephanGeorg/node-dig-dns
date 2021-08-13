@@ -1,22 +1,37 @@
 import compact from 'lodash.compact';
 import child from 'child_process';
 
-function parseSection(values, section) {
-  if (
-    section === 'answer' ||
-    section === 'additional') {
+/**
+ * Parse value based on request type
+ * @param {*} type
+ * @param {*} value
+ */
+const parseType = (values = []) => {
+  const type = values[3].toString().toUpperCase();
+  switch (type) {
+    case 'SOA': return values.slice(4).toString().replace(/,/g, ' ');
+    case 'MX': {
+      return { priority: values[4], server: values[5] };
+    }
+    default: return values[values.length - 1];
+  }
+};
+
+const parseSection = (values, section) => {
+  if (section === 'answer'
+    || section === 'additional') {
     return {
       domain: values[0],
       type: values[3],
       ttl: values[1],
       class: values[2],
-      value: values[values.length - 1],
+      value: parseType(values),
     };
   }
   return values;
-}
+};
 
-function parse(output = '') {
+const parse = (output = '') => {
   const regex = /(;; )([^\s]+)( SECTION:)/g;
   const result = {};
   const data = output.split(/\r?\n/);
@@ -54,9 +69,9 @@ function parse(output = '') {
   result.datetime = data[data.length - 4].replace(';; WHEN: ', '');
   result.size = Number(data[data.length - 3].replace(';; MSG SIZE  rcvd: ', ''));
   return result;
-}
+};
 
-const dig = function dig(args = [], options = {}) {
+const dig = (args = [], options = {}) => {
   const raw = (options.raw === true) ? options.raw : args.includes('+short');
   const digCMD = options.dig || 'dig';
   return new Promise((resolve, reject) => {
@@ -73,9 +88,9 @@ const dig = function dig(args = [], options = {}) {
 
     process.stdout.on('end', () => {
       try {
-        const result = (raw !== true) ?
-          parse(shellOutput) :
-          shellOutput.replace(/\n$/, '');
+        const result = (raw !== true)
+          ? parse(shellOutput)
+          : shellOutput.replace(/\n$/, '');
         resolve(result);
       } catch (err) {
         reject(err);
