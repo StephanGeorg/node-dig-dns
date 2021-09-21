@@ -1,6 +1,6 @@
 {
   "name": "node-dig-dns",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Use dig command for DNS queries in node",
   "main": "./dist/index.js",
   "scripts": {
@@ -15,22 +15,22 @@
     "url": "https://github.com/StephanGeorg/node-dig-dns/issues"
   },
   "homepage": "https://github.com/StephanGeorg/node-dig-dns#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.15.4",
+    "lodash.compact": "^3.0.1"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.15.0",
-    "@babel/eslint-parser": "^7.15.0",
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/eslint-parser": "^7.15.7",
     "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
     "@babel/preset-stage-2": "^7.8.3",
-    "@babel/register": "^7.14.5",
+    "@babel/register": "^7.15.3",
     "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.0",
-    "mocha": "^9.0.3"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.11.2",
-    "lodash.compact": "^3.0.1"
+    "mocha": "^9.1.1"
   }
 }
