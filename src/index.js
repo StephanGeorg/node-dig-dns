@@ -78,6 +78,10 @@ const dig = (args = [], options = {}) => {
     const process = child.spawn(digCMD, args);
     let shellOutput = '';
 
+    process.on('error', (error) => {
+      reject(error);
+    });
+
     process.stdout.on('data', (chunk) => {
       shellOutput += chunk;
     });
