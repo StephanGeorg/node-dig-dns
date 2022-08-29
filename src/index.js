@@ -13,6 +13,14 @@ const parseType = (values = []) => {
     case 'MX': {
       return { priority: values[4], server: values[5] };
     }
+    case 'TXT':
+        var txtValues = [];
+        values.forEach(function (line, i) {
+          if (i > 3) {
+            txtValues.push(line); 
+          }
+        });
+        return txtValues.join(' ');
     default: return values[values.length - 1];
   }
 };
