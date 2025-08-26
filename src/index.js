@@ -13,6 +13,10 @@ const parseType = (values = []) => {
     case 'MX': {
       return { priority: values[4], server: values[5] };
     }
+    case 'TXT': {
+      const txtValue = values.slice(4).join(' ');
+      return txtValue.replace(/^"(.*)"$/, '$1');
+    }
     default: return values[values.length - 1];
   }
 };
