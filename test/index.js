@@ -130,6 +130,31 @@ describe('Query DNS Server', () => {
       });
   }); */
 
+  it('Query TXT with an SPF record for google.com and parse correctly', (done) => {
+    dig(['google.com', 'TXT'])
+      .then((result) => {
+        expect(result).to.be.an('object');
+        expect(result.answer).to.be.an('array');
+
+        const spfRecord = result.answer.find(record =>
+          record.type === 'TXT' &&
+          record.value &&
+          record.value.startsWith('v=spf1')
+        );
+
+        expect(spfRecord.value).to.be.a('string');
+        expect(spfRecord.value).to.include('v=spf1');
+        if (spfRecord.value.includes('~all')) {
+            expect(spfRecord.value).to.match(/^v=spf1.+~all$/);
+        }
+        done();
+      })
+      .catch((err) => {
+        console.log('Error:', err);
+        done(err);
+      });
+  });
+
   it('DIG an unreachable host and throw exception', (done) => {
     // https://serverfault.com/questions/776049/how-to-simulate-dns-server-response-timeout#answer-776191
     dig(['example.com', '@72.66.115.13']).then((result) => {
